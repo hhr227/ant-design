@@ -343,9 +343,7 @@ export default class TransferList extends React.PureComponent<
     const listFooter = footerDom ? <div className={`${prefixCls}-footer`}>{footerDom}</div> : null;
 
     const checkAllCheckbox =
-      !showRemove &&
-      !pagination &&
-      this.getCheckBox(filteredItems, onItemSelectAll, showSelectAll, disabled);
+      !showRemove && this.getCheckBox(filteredItems, onItemSelectAll, showSelectAll, disabled);
 
     let menu: React.ReactElement | null = null;
     if (showRemove) {
