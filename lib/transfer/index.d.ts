@@ -68,6 +68,7 @@ export interface TransferProps {
     selectAllLabels?: SelectAllLabel[];
     oneWay?: boolean;
     pagination?: PaginationType;
+    onlyRight?: boolean;
 }
 interface TransferState {
     sourceSelectedKeys: string[];
@@ -81,6 +82,7 @@ declare class Transfer extends React.Component<TransferProps, TransferState> {
         dataSource: never[];
         locale: {};
         showSearch: boolean;
+        onlyRight: boolean;
         listStyle: () => void;
     };
     static getDerivedStateFromProps({ selectedKeys, targetKeys, pagination, children, }: TransferProps): {

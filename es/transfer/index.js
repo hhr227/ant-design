@@ -248,7 +248,8 @@ var Transfer = /*#__PURE__*/function (_React$Component) {
             children = _this$props3.children,
             showSelectAll = _this$props3.showSelectAll,
             oneWay = _this$props3.oneWay,
-            pagination = _this$props3.pagination;
+            pagination = _this$props3.pagination,
+            onlyRight = _this$props3.onlyRight;
         var prefixCls = getPrefixCls('transfer', customizePrefixCls);
 
         var locale = _this.getLocale(transferLocale, renderEmpty);
@@ -272,7 +273,7 @@ var Transfer = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/React.createElement("div", {
           className: cls,
           style: style
-        }, /*#__PURE__*/React.createElement(List, _extends({
+        }, (onlyRight === undefined || !onlyRight) && /*#__PURE__*/React.createElement(List, _extends({
           prefixCls: "".concat(prefixCls, "-list"),
           titleText: titles[0],
           dataSource: leftDataSource,
@@ -293,7 +294,7 @@ var Transfer = /*#__PURE__*/function (_React$Component) {
           showSelectAll: showSelectAll,
           selectAllLabel: selectAllLabels[0],
           pagination: mergedPagination
-        }, locale)), /*#__PURE__*/React.createElement(Operation, {
+        }, locale)), (onlyRight === undefined || !onlyRight) && /*#__PURE__*/React.createElement(Operation, {
           className: "".concat(prefixCls, "-operation"),
           rightActive: rightActive,
           rightArrowText: operations[0],
@@ -450,6 +451,7 @@ Transfer.defaultProps = {
   dataSource: [],
   locale: {},
   showSearch: false,
+  onlyRight: false,
   listStyle: function listStyle() {}
 };
 export default Transfer;
