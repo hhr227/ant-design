@@ -82,6 +82,7 @@ export interface TransferProps {
   selectAllLabels?: SelectAllLabel[];
   oneWay?: boolean;
   pagination?: PaginationType;
+  onlyRight?: boolean; // by hhr 是否仅显示右侧
 }
 
 interface TransferState {
@@ -101,6 +102,7 @@ class Transfer extends React.Component<TransferProps, TransferState> {
     dataSource: [],
     locale: {},
     showSearch: false,
+    onlyRight: false,
     listStyle: () => {},
   };
 
@@ -360,6 +362,7 @@ class Transfer extends React.Component<TransferProps, TransferState> {
           showSelectAll,
           oneWay,
           pagination,
+          onlyRight,
         } = this.props;
         const prefixCls = getPrefixCls('transfer', customizePrefixCls);
         const locale = this.getLocale(transferLocale, renderEmpty);
@@ -385,42 +388,46 @@ class Transfer extends React.Component<TransferProps, TransferState> {
         const selectAllLabels = this.props.selectAllLabels || [];
         return (
           <div className={cls} style={style}>
-            <List
-              prefixCls={`${prefixCls}-list`}
-              titleText={titles[0]}
-              dataSource={leftDataSource}
-              filterOption={filterOption}
-              style={this.handleListStyle(listStyle, 'left')}
-              checkedKeys={sourceSelectedKeys}
-              handleFilter={this.handleLeftFilter}
-              handleClear={this.handleLeftClear}
-              onItemSelect={this.onLeftItemSelect}
-              onItemSelectAll={this.onLeftItemSelectAll}
-              render={render}
-              showSearch={showSearch}
-              renderList={children}
-              footer={footer}
-              onScroll={this.handleLeftScroll}
-              disabled={disabled}
-              direction="left"
-              showSelectAll={showSelectAll}
-              selectAllLabel={selectAllLabels[0]}
-              pagination={mergedPagination}
-              {...locale}
-            />
-            <Operation
-              className={`${prefixCls}-operation`}
-              rightActive={rightActive}
-              rightArrowText={operations[0]}
-              moveToRight={this.moveToRight}
-              leftActive={leftActive}
-              leftArrowText={operations[1]}
-              moveToLeft={this.moveToLeft}
-              style={operationStyle}
-              disabled={disabled}
-              direction={direction}
-              oneWay={oneWay}
-            />
+            {(onlyRight === undefined || !onlyRight) && (
+              <List
+                prefixCls={`${prefixCls}-list`}
+                titleText={titles[0]}
+                dataSource={leftDataSource}
+                filterOption={filterOption}
+                style={this.handleListStyle(listStyle, 'left')}
+                checkedKeys={sourceSelectedKeys}
+                handleFilter={this.handleLeftFilter}
+                handleClear={this.handleLeftClear}
+                onItemSelect={this.onLeftItemSelect}
+                onItemSelectAll={this.onLeftItemSelectAll}
+                render={render}
+                showSearch={showSearch}
+                renderList={children}
+                footer={footer}
+                onScroll={this.handleLeftScroll}
+                disabled={disabled}
+                direction="left"
+                showSelectAll={showSelectAll}
+                selectAllLabel={selectAllLabels[0]}
+                pagination={mergedPagination}
+                {...locale}
+              />
+            )}
+            {(onlyRight === undefined || !onlyRight) && (
+              <Operation
+                className={`${prefixCls}-operation`}
+                rightActive={rightActive}
+                rightArrowText={operations[0]}
+                moveToRight={this.moveToRight}
+                leftActive={leftActive}
+                leftArrowText={operations[1]}
+                moveToLeft={this.moveToLeft}
+                style={operationStyle}
+                disabled={disabled}
+                direction={direction}
+                oneWay={oneWay}
+              />
+            )}
             <List
               prefixCls={`${prefixCls}-list`}
               titleText={titles[1]}
